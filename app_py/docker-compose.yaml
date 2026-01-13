@@ -1,0 +1,21 @@
+name: lucian-app-python
+
+services:
+  app-provas:
+    build:
+        context: .
+        dockerfile: Dockerfile
+    image: app-provas:2.2
+    container_name: app-provas
+    ports:
+      - 8502:8502
+    volumes:
+      - ./database:/app/database
+    restart: always
+    networks:
+      - lucian-app-python
+
+
+networks:
+  lucian-app-python:
+    driver: bridge

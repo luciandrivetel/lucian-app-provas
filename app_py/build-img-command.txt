@@ -1,0 +1,2 @@
+docker build -t app-provas .
+docker build -t app-provas:2.2 .
