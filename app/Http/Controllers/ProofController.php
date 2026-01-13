@@ -31,13 +31,19 @@ class ProofController extends Controller
         return redirect()->back();
     }
 
-    public function searchByDate(Request $request)
-    {
-        $proofs = Proof::whereYear('data', $request->ano)->
-        whereMonth('data', $request->mes)->
-        get();
+    // public function searchByRef(Request $request)
+    // {
+    //     $proofs = Proof::where('referencia', 'LIKE', '%' . $request->referencia . '%');
 
-        return view('proof.index', compact('proofs'));
+    //     return view('home', compact('proofs'));
+    // }
+
+    public function searchByRef()
+    {
+        $user = ['nome'=>'Nome Prod',
+                    'referencia'=>'1234567890',
+                    'data'=>'2026'];
+        return view('home', compact('user'));
     }
 
 }

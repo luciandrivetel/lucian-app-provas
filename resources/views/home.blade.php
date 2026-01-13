@@ -135,7 +135,7 @@
             <section>
                 <h2>Prova nova</h2>
                 <div class="new_form">
-                    <form method="POST" action="{{ route('proof.store') }}">
+                    <form method="POST" action="{{ route('proofs.store') }}">
                         @csrf
                         <label for="nome_material">O nome do material</label><br>
                         <input id="nome_material" type="text" name="nome" required placeholder="obrigatório"><br><br>
@@ -154,7 +154,7 @@
             <section>
                 <h2>Procurar provas feitas</h2>
                 <div class="new_form">
-                    <form>
+                    <form method="GET" action="{{ route('proofs.searchByRef') }}">
                         <label for="proc_prova">Rêferencia da prova</label><br>
                         <input id="proc_prova" type="text" name="referencia" required placeholder="obrigatório"><br><br>
                         <button type="submit">Procurar</button>
@@ -169,11 +169,30 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                {{-- @isset($proofs)
+                                    @forelse ($proofs as $proof)
+                                    <tr>
+                                        <td>{{ $proof->nome }}</td>
+                                        <td>{{ $proof->referencia }}</td>
+                                        <td>{{ $proof->data }}</td>
+                                    </tr>
+
+                                    @empty
+                                    <tr>
+                                        <td colspan="3">Nenhuma prova encontrada</td>
+                                    </tr>
+
+                                    @endforelse
+
+                                @endisset --}}
+                                @isset($user)
+
                                 <tr>
-                                    <td>Prova 1</td>
-                                    <td>Nome 1</td>
-                                    <td>Data 1</td>
+                                    <td>{{ $user->nome }}</td>
+                                    <td>{{ $user->referencia }}</td>
+                                    <td>{{ $user->data }}</td>
                                 </tr>
+                                @endisset
                             </tbody>
 
                         </table>
@@ -184,7 +203,7 @@
             <section>
                 <h2>Provas feitas por mês e ano</h2>
                 <div class="search_form_border">
-                    <form class="search_form" method="GET" action="{{ route('proof.searchByDate') }}">
+                    <form class="search_form" method="GET" action="#">
                         <!--Randul 1-->
                         <label for="month">Escolha a mês</label>
                         <label for="year">Digite o ano</label>
@@ -218,19 +237,16 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @isset($proofs)
-                                @forelse($proofs as $proof)
-                                <tr>
-                                    <td>{{ $proof->nome }}</td>
-                                    <td>{{ $proof->referencia }}</td>
-                                    <td>{{ $proof->data }}</td>
-                                </tr>
-                                @empty
-                                <tr>
-                                    <td colspan="3">Nenhum resultado</td>
-                                </tr>
-
-                            @endisset
+                            <tr>
+                                <td>Prova 1</td>
+                                <td>Nome 1</td>
+                                <td>Data 1</td>
+                            </tr>
+                            <tr>
+                                <td>Prova 2</td>
+                                <td>Nome 2</td>
+                                <td>Data 2</td>
+                            </tr>
                         </tbody>
 
                     </table>
