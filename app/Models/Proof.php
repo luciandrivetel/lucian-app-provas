@@ -10,16 +10,9 @@ class Proof extends Model
 
     protected $primaryKey = 'id';
 
-    public $timestamps = false;
-
     protected $fillable = [
         'nome',
         'referencia',
-        'data',
         'comment'
-    ];
-
-    protected $casts = [
-        'data' => 'date'
     ];
 }

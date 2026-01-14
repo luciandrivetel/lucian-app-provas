@@ -120,6 +120,24 @@
                 border: 2px solid grey;
                 padding: 8px;
             }
+            .message_success {
+                color: green;
+                text-align: center;
+                background-color: lightgray;
+                border-radius: 10px;
+                padding: 10px;
+                margin: 5px;
+                max-width: 900px;
+            }
+            .message_error {
+                color: red;
+                text-align: center;
+                background-color: lightgrey;
+                border-radius: 10px;
+                padding: 10px;
+                margin: 5px;
+                max-width: 900px;
+            }
 
         </style>
     </head>
@@ -132,6 +150,18 @@
         </header>
 
         <main>
+            <section>
+                @if (session('success'))
+                    <div class="message_success">
+                        {{ session('success') }}
+                    </div>
+                @endif
+                @if (session('error'))
+                    <div class="message_error">
+                        {{ session('error') }}
+                    </div>
+                @endif
+            </section>
             <section>
                 <h2>Prova nova</h2>
                 <div class="new_form">
@@ -174,7 +204,7 @@
                                     <tr>
                                         <td>{{ $proof->nome }}</td>
                                         <td>{{ $proof->referencia }}</td>
-                                        <td>{{ $proof->data }}</td>
+                                        <td>{{ $proof->created_at }}</td>
                                     </tr>
 
                                     @empty
@@ -188,8 +218,14 @@
                             </tbody>
 
                         </table>
+
+
                     </div>
+                        <div style="margin-top: 10px">
+                            <button type="submit">Limpar</button>
+                        </div>
                 </div>
+
             </section>
 
             <section>
@@ -243,6 +279,9 @@
 
                     </table>
                 </div>
+                    <div class="search_form button">
+                        <button type="submit">Limpar</button>
+                    </div>
                 </div>
             </section>
         </main>
