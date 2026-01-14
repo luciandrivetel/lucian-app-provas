@@ -44,4 +44,14 @@ class ProofController extends Controller
         return view('home', compact('proofs'));
     }
 
+    public function searchByDate(Request $request)
+    {
+        // dd($request->all());
+
+        $proofs_date = Proof::whereYear('created_at', $request->ano)->whereMonth('created_at', $request->mes)->get();
+
+        return view('home', compact('proofs_date'));
+
+    }
+
 }

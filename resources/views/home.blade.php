@@ -26,7 +26,8 @@
             }
             button {
                 font-size: 12pt;
-                font-family: Ubuntu;
+                font-family: Arial, Helvetica, sans-serif;
+                font-weight: bold;
                 padding: 10px;
                 max-width: 100px;
                 min-width: 80px;
@@ -209,7 +210,7 @@
 
                                     @empty
                                     <tr>
-                                        <td colspan="3">Nenhuma prova encontrada</td>
+                                        <td colspan="3" style="color: red">Nenhuma prova encontrada</td>
                                     </tr>
 
                                     @endforelse
@@ -222,7 +223,7 @@
 
                     </div>
                         <div style="margin-top: 10px">
-                            <button type="submit">Limpar</button>
+                            <button type="button" onclick="window.location.href='{{ route('proof.index') }}'">Limpar</button>
                         </div>
                 </div>
 
@@ -231,7 +232,7 @@
             <section>
                 <h2>Provas feitas por mês e ano</h2>
                 <div class="search_form_border">
-                    <form class="search_form" method="GET" action="#">
+                    <form class="search_form" method="GET" action="{{ route('proofs.searchByDate') }}">
                         <!--Randul 1-->
                         <label for="month">Escolha a mês</label>
                         <label for="year">Digite o ano</label>
@@ -265,22 +266,25 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>Prova 1</td>
-                                <td>Nome 1</td>
-                                <td>Data 1</td>
-                            </tr>
-                            <tr>
-                                <td>Prova 2</td>
-                                <td>Nome 2</td>
-                                <td>Data 2</td>
-                            </tr>
+                            @isset($proofs_date)
+                                @forelse($proofs_date as $proof)
+                                    <tr>
+                                        <td>{{ $proof->nome }}</td>
+                                        <td>{{ $proof->referencia }}</td>
+                                        <td>{{ $proof->created_at }}</td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="3" style="color: red">Nenhuma prova encontrada</td>
+                                    </tr>
+                                @endforelse
+                            @endisset
                         </tbody>
 
                     </table>
                 </div>
                     <div class="search_form button">
-                        <button type="submit">Limpar</button>
+                        <button type="button" onclick="window.location.href='{{ route('proof.index') }}'">Limpar</button>
                     </div>
                 </div>
             </section>
