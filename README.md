@@ -2,7 +2,7 @@
 ### Passo a passo
 Clone Repositório
 ```sh
-git clone -b laravel-11-with-php-8.3 https://github.com/estagiodrivetel/app-provas-laravel.git app-provas-laravel
+git clone https://github.com/luciandrivetel/lucian-app-provas.git app-provas-laravel
 ```
 ```sh
 cd app-laravel
@@ -11,12 +11,6 @@ cd app-laravel
 Suba os containers do projeto
 ```sh
 docker-compose up -d
-```
-
-
-Crie o Arquivo .env
-```sh
-cp .env.example .env
 ```
 
 Acesse o container app
