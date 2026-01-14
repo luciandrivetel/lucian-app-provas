@@ -169,7 +169,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                {{-- @isset($proofs)
+                                @isset($proofs)
                                     @forelse ($proofs as $proof)
                                     <tr>
                                         <td>{{ $proof->nome }}</td>
@@ -184,14 +184,6 @@
 
                                     @endforelse
 
-                                @endisset --}}
-                                @isset($user)
-
-                                <tr>
-                                    <td>{{ $user->nome }}</td>
-                                    <td>{{ $user->referencia }}</td>
-                                    <td>{{ $user->data }}</td>
-                                </tr>
                                 @endisset
                             </tbody>
 

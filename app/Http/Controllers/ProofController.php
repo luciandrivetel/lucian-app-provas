@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\Proof;
+use PhpOption\None;
 
 class ProofController extends Controller
 {
@@ -31,19 +32,11 @@ class ProofController extends Controller
         return redirect()->back();
     }
 
-    // public function searchByRef(Request $request)
-    // {
-    //     $proofs = Proof::where('referencia', 'LIKE', '%' . $request->referencia . '%');
-
-    //     return view('home', compact('proofs'));
-    // }
-
-    public function searchByRef()
+    public function searchByRef(Request $request)
     {
-        $user = ['nome'=>'Nome Prod',
-                    'referencia'=>'1234567890',
-                    'data'=>'2026'];
-        return view('home', compact('user'));
+        $proofs = Proof::where('referencia', 'LIKE', '%' . $request->referencia . '%')->get();
+
+        return view('home', compact('proofs'));
     }
 
 }
