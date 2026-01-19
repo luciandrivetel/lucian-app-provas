@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\Proof;
+use Exception;
 use PhpOption\None;
 
 class ProofController extends Controller
@@ -51,6 +52,41 @@ class ProofController extends Controller
         $proofs_date = Proof::whereYear('created_at', $request->ano)->whereMonth('created_at', $request->mes)->get();
 
         return view('home', compact('proofs_date'));
+
+    }
+
+    public function edit($id)
+    {
+        if (!$proof = Proof::find($id)){
+            return redirect()->route('proof.index')->with('error', 'Nenhuma prova encontrada');
+        }
+
+        return view('edit', compact('proof'));
+    }
+
+    public function update(Request $request, $id)
+    {   try {
+            $request->validate([
+                'nome'=>'required',
+                'referencia'=>['required', 'unique:proofs,referencia'],
+                'comment'=>'nullable'
+            ]);
+
+            if (!$user = Proof::find($id)) {
+                return back()->with('error', 'Prova não encontrada');
+            }
+
+            $user->update($request->only([
+                'nome',
+                'referencia',
+                'comment'
+            ]));
+
+            return redirect()->route('proof.index')->with('success', 'Prova atualizada com sucesso');
+            }
+        catch(\Exception $e) {
+            return redirect()->back()->with('error', "O nome do material e rêferencia são obrigatorias");
+        }
 
     }
 

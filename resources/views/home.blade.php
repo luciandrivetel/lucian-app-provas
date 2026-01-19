@@ -147,7 +147,7 @@
 
         <header>
             <img  class="logo_tipocor" src="{{ asset('/images/logo_Tipocor.png') }}" alt="Logotipo Tipocor">
-            <h1>Provas novas Medinfar</h1>
+            <h1>Provas Medinfar</h1>
         </header>
 
         <main>
@@ -197,6 +197,7 @@
                                     <th>Nome</th>
                                     <th>Rêferencia</th>
                                     <th>Data</th>
+                                    <th>Ação</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -206,11 +207,12 @@
                                         <td>{{ $proof->nome }}</td>
                                         <td>{{ $proof->referencia }}</td>
                                         <td>{{ $proof->created_at }}</td>
+                                        <td><a href="{{ route('proofs.edit', $proof->id) }}">Editar</a></td>
                                     </tr>
 
                                     @empty
                                     <tr>
-                                        <td colspan="3" style="color: red">Nenhuma prova encontrada</td>
+                                        <td colspan="4" style="color: red">Nenhuma prova encontrada</td>
                                     </tr>
 
                                     @endforelse
@@ -263,6 +265,7 @@
                                 <th>Nome</th>
                                 <th>Rêferencia</th>
                                 <th>Data</th>
+                                <th>Ação</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -272,10 +275,13 @@
                                         <td>{{ $proof->nome }}</td>
                                         <td>{{ $proof->referencia }}</td>
                                         <td>{{ $proof->created_at }}</td>
+                                        <td>
+                                            <a href="{{ route('proofs.edit', $proof->id) }}">Editar</a>
+                                        </td>
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="3" style="color: red">Nenhuma prova encontrada</td>
+                                        <td colspan="4" style="color: red">Nenhuma prova encontrada</td>
                                     </tr>
                                 @endforelse
                             @endisset
