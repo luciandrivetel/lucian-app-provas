@@ -81,46 +81,7 @@
             .new_form label {
                 font-weight: bold;
             }
-            .search_form {
-                display: grid;
-                grid-template-columns: 1fr 1fr;
-                gap: 15px;
 
-                padding: 10px;
-                max-width: 900px;
-                /* border-radius: 10px;
-                border: 2px solid grey; */
-
-                text-align: center;
-            }
-            .search_form label {
-                font-weight: bold;
-            }
-            .search_form select,
-            .search_form input {
-                padding: 8pt;
-                font-size: 12pt;
-                margin-top: 3px;
-            }
-            .search_form button {
-                grid-column: 1 / 3;
-                justify-self: center;
-            }
-            .result {
-                padding: 10px;
-                margin-top: 20px;
-                font-size: 14pt;
-                background-color: #dfdfdf;
-                border: none;
-                border-radius: 10px;
-                column-span: all;
-                text-align: center;
-            }
-            .search_form_border {
-                border-radius: 10px;
-                border: 2px solid grey;
-                padding: 8px;
-            }
             .message_success {
                 color: green;
                 text-align: center;
@@ -157,9 +118,15 @@
                         {{ session('error') }}
                     </div>
                 @endif
+                @if ($errors->any())
+                    @foreach ($errors->all() as $error)
+                        <p class="message_error">{{ $error }}</p>
+                    @endforeach
+                @endif
             </section>
             <section>
                 <h2>Editar prova: <em style="color: darkgray">{{ $proof->nome }} {{ $proof->referencia }}</em></h2>
+
                 <div class="new_form">
                     <form method="POST" action="{{ route('proofs.update', $proof->id) }}">
                         @csrf  {{-- ca sa imi ia in forma si tokenul --}}

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreProofRequest;
+use App\Http\Requests\UpdateProofRequest;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\Proof;
@@ -15,28 +17,42 @@ class ProofController extends Controller
         return view('home');
     }
 
-    public function store(Request $request)
+    public function store(StoreProofRequest $request)
     {
-        try {
-            $request->validate([
-            'nome'=>'required',
-            'referencia'=>['required', 'unique:proofs,referencia'],
-            'comment'=>'nullable'
+
+        Proof::create([
+            'nome'=>$request->nome,
+            'referencia'=>$request->referencia,
+            'comment'=>$request->comment
         ]);
 
-            Proof::create([
-                'nome'=>$request->nome,
-                'referencia'=>$request->referencia,
-                'comment'=>$request->comment
-            ]);
-
-            return redirect()->back()->with('success', 'Prova foi guardada com sucesso!');
-        }
-        catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Erro, a prova não foi guardada');
-        }
+        return redirect()->route('proof.index')->with('success', 'Prova foi guardada com sucesso!');
 
     }
+
+// Fara Request separat:
+    // public function store(Request $request)
+    // {
+    //     try {
+    //         $request->validate([
+    //         'nome'=>'required',
+    //         'referencia'=>['required', 'unique:proofs,referencia'],
+    //         'comment'=>'nullable'
+    //     ]);
+
+    //         Proof::create([
+    //             'nome'=>$request->nome,
+    //             'referencia'=>$request->referencia,
+    //             'comment'=>$request->comment
+    //         ]);
+
+    //         return redirect()->back()->with('success', 'Prova foi guardada com sucesso!');
+    //     }
+    //     catch (\Exception $e) {
+    //         return redirect()->back()->with('error', 'Erro, a prova não foi guardada');
+    //     }
+
+    // }
 
     public function searchByRef(Request $request)
     {
@@ -64,29 +80,48 @@ class ProofController extends Controller
         return view('edit', compact('proof'));
     }
 
-    public function update(Request $request, $id)
-    {   try {
-            $request->validate([
-                'nome'=>'required',
-                'referencia'=>['required', 'unique:proofs,referencia'],
-                'comment'=>'nullable'
-            ]);
+    //Fara request separat, merge
 
-            if (!$user = Proof::find($id)) {
-                return back()->with('error', 'Prova não encontrada');
-            }
+    // public function update(Request $request, $id)
+    // {   try {
+    //         $request->validate([
+    //             'nome'=>'required',
+    //             'referencia'=>['required', 'unique:proofs,referencia'],
+    //             'comment'=>'nullable'
+    //         ]);
 
-            $user->update($request->only([
-                'nome',
-                'referencia',
-                'comment'
-            ]));
+    //         if (!$proof = Proof::find($id)) {
+    //             return back()->with('error', 'Prova não encontrada');
+    //         }
 
-            return redirect()->route('proof.index')->with('success', 'Prova atualizada com sucesso');
-            }
-        catch(\Exception $e) {
-            return redirect()->back()->with('error', "O nome do material e rêferencia são obrigatorias");
+    //         $proof->update($request->only([
+    //             'nome',
+    //             'referencia',
+    //             'comment'
+    //         ]));
+
+    //         return redirect()->route('proof.index')->with('success', 'Prova atualizada com sucesso');
+    //         }
+    //     catch(\Exception $e) {
+    //         return redirect()->back()->with('error', "O nome do material e a rêferencia são obrigatorias");
+    //     }
+
+    // }
+
+        public function update(UpdateProofRequest $request, $id)
+    {
+
+        if (!$proof = Proof::find($id)) {
+            return back()->with('error', 'Prova não encontrada');
         }
+
+        $proof->update($request->only([
+            'nome',
+            'referencia',
+            'comment'
+        ]));
+
+        return redirect()->route('proof.index')->with('success', 'Prova atualizada com sucesso');
 
     }
 

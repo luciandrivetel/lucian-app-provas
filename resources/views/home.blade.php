@@ -147,7 +147,7 @@
 
         <header>
             <img  class="logo_tipocor" src="{{ asset('/images/logo_Tipocor.png') }}" alt="Logotipo Tipocor">
-            <h1>Provas Medinfar</h1>
+            <h1>App Gestor de provas  </h1>
         </header>
 
         <main>
@@ -162,6 +162,12 @@
                         {{ session('error') }}
                     </div>
                 @endif
+
+                @if ($errors->any())
+                    @foreach ($errors->all() as $error)
+                        <p class="message_error">{{ $error }}</p>
+                    @endforeach
+                @endif
             </section>
             <section>
                 <h2>Prova nova</h2>
@@ -169,10 +175,10 @@
                     <form method="POST" action="{{ route('proofs.store') }}">
                         @csrf
                         <label for="nome_material">O nome do material</label><br>
-                        <input id="nome_material" type="text" name="nome" required placeholder="obrigatório"><br><br>
+                        <input id="nome_material" type="text" name="nome" placeholder="obrigatório"><br><br>
 
                         <label for="referencia">Rêferencia</label><br>
-                        <input id="referencia" type="text" name="referencia" required placeholder="obrigatório"><br><br>
+                        <input id="referencia" type="text" name="referencia" placeholder="obrigatório"><br><br>
 
                         <label for="comentario">Comentário</label><br>
                         <input id="comentario" type="text" name="comment"><br><br>
@@ -207,7 +213,7 @@
                                         <td>{{ $proof->nome }}</td>
                                         <td>{{ $proof->referencia }}</td>
                                         <td>{{ $proof->created_at }}</td>
-                                        <td><a href="{{ route('proofs.edit', $proof->id) }}">Editar</a></td>
+                                        <td><a href="{{ route('proofs.edit', $proof->id) }}">Editar</a> | <a href="#">Apagar</a></td>
                                     </tr>
 
                                     @empty
@@ -276,7 +282,7 @@
                                         <td>{{ $proof->referencia }}</td>
                                         <td>{{ $proof->created_at }}</td>
                                         <td>
-                                            <a href="{{ route('proofs.edit', $proof->id) }}">Editar</a>
+                                            <a href="{{ route('proofs.edit', $proof->id) }}">Editar</a> | <a href="#">Apagar</a>
                                         </td>
                                     </tr>
                                 @empty
