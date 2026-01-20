@@ -2,9 +2,9 @@
 
 <html lang="pt" dir="ltr">
     <head>
-        <title>Provas Medinfar</title>
+        <title>Gestor de provas</title>
         <meta charset="UTF-8">
-        <meta name="description" content="Provas novas Medinfar">
+        <meta name="description" content="Gestor de provas">
         <meta name="viewport" content="width=device-width, initial=1.0">
         <style>
             header {
@@ -54,7 +54,7 @@
                 padding: 3px;
             }
 
-            .logo_tipocor {
+            .company_logo {
                 max-width: 500px;
                 display: block;
                 margin: auto;
@@ -146,7 +146,7 @@
     <body>
 
         <header>
-            <img  class="logo_tipocor" src="{{ asset('/images/logo_Tipocor.png') }}" alt="Logotipo Tipocor">
+            <img  class="company_logo" src="{{ asset('/images/logo_generico.png') }}" alt="Logotipo Generico">
             <h1>App Gestor de provas  </h1>
         </header>
 

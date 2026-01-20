@@ -115,11 +115,7 @@ class ProofController extends Controller
             return back()->with('error', 'Prova não encontrada');
         }
 
-        $proof->update($request->only([
-            'nome',
-            'referencia',
-            'comment'
-        ]));
+        $proof->update($request->validated());
 
         return redirect()->route('proof.index')->with('success', 'Prova atualizada com sucesso');
 
