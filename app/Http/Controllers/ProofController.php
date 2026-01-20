@@ -121,4 +121,17 @@ class ProofController extends Controller
 
     }
 
+    public function delete($id)
+    {
+        if(!$proof = Proof::find($id)){
+            return back()->with('error', 'Prova não encontrada');
+        }
+        //dd($proof->id);
+        $proof_name = $proof->nome;
+
+        $proof->delete();
+
+        return back()->with('success', "Prova '{$proof_name}' apagada com sucesso!");
+    }
+
 }
