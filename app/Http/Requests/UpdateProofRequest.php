@@ -27,7 +27,7 @@ class UpdateProofRequest extends FormRequest
             'nome' => ['required', 'string'],
             'referencia' => [
                 'required',
-                Rule::unique('proofs', 'referencia')->ignore($this->route('proof'))
+                 Rule::unique('proofs', 'referencia')->ignore($this->route('proof'))
             ],
             'comment' => ['nullable', 'string']
         ];

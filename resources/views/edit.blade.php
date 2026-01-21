@@ -38,21 +38,6 @@
             button:hover {
                 background-color: rgb(219, 219, 219);
             }
-            table {
-                border-collapse: collapse;
-                border: 2px solid black;
-                width: 100%;
-                font-size: 12pt;
-            }
-            th {
-                text-align: center;
-                border: 2px solid black;
-                padding: 3px;
-            }
-            td {
-                border: 1px solid black;
-                padding: 3px;
-            }
 
             .company_logo {
                 max-width: 500px;

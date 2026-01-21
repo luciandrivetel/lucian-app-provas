@@ -192,8 +192,8 @@
                 <h2>Procurar provas feitas</h2>
                 <div class="new_form">
                     <form method="GET" action="{{ route('proofs.searchByRef') }}">
-                        <label for="proc_prova">Rêferencia da prova</label><br>
-                        <input id="proc_prova" type="text" name="referencia" required placeholder="obrigatório"><br><br>
+                        <label for="proc_prova">Nome ou Rêferencia da prova</label><br>
+                        <input id="proc_prova" type="text" name="nome_ref" required placeholder="nome ou rêferencia"><br><br>
                         <button type="submit">Procurar</button>
                     </form>
                     <div class="result">
@@ -272,6 +272,7 @@
                         <button type="submit">Procurar</button>
                     </form>
                 <div class="result">
+                    {{-- @include --}}
                     <table>
                         <thead>
                             <tr>

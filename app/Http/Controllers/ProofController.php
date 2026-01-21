@@ -30,33 +30,17 @@ class ProofController extends Controller
 
     }
 
-// Fara Request separat:
-    // public function store(Request $request)
-    // {
-    //     try {
-    //         $request->validate([
-    //         'nome'=>'required',
-    //         'referencia'=>['required', 'unique:proofs,referencia'],
-    //         'comment'=>'nullable'
-    //     ]);
-
-    //         Proof::create([
-    //             'nome'=>$request->nome,
-    //             'referencia'=>$request->referencia,
-    //             'comment'=>$request->comment
-    //         ]);
-
-    //         return redirect()->back()->with('success', 'Prova foi guardada com sucesso!');
-    //     }
-    //     catch (\Exception $e) {
-    //         return redirect()->back()->with('error', 'Erro, a prova não foi guardada');
-    //     }
-
-    // }
-
     public function searchByRef(Request $request)
     {
-        $proofs = Proof::where('referencia', 'LIKE', '%' . $request->referencia . '%')->get();
+        //OLD: $proofs = Proof::where('referencia', 'LIKE', '%' . $request->referencia . '%')->get();
+
+        //SOLUÇÂO https://stackoverflow.com/questions/48089966/how-to-get-search-query-from-multiple-columns-in-database
+        $keyword = $request->nome_ref;
+        $proofs = Proof::where(function($query) use($keyword)
+        {
+            $query->where('referencia', 'LIKE', '%' . $keyword . '%')
+            ->orWhere('nome', 'LIKE', '%' . $keyword . '%');
+        })->get();
 
         return view('home', compact('proofs'));
     }
@@ -80,34 +64,7 @@ class ProofController extends Controller
         return view('edit', compact('proof'));
     }
 
-    //Fara request separat, merge
-
-    // public function update(Request $request, $id)
-    // {   try {
-    //         $request->validate([
-    //             'nome'=>'required',
-    //             'referencia'=>['required', 'unique:proofs,referencia'],
-    //             'comment'=>'nullable'
-    //         ]);
-
-    //         if (!$proof = Proof::find($id)) {
-    //             return back()->with('error', 'Prova não encontrada');
-    //         }
-
-    //         $proof->update($request->only([
-    //             'nome',
-    //             'referencia',
-    //             'comment'
-    //         ]));
-
-    //         return redirect()->route('proof.index')->with('success', 'Prova atualizada com sucesso');
-    //         }
-    //     catch(\Exception $e) {
-    //         return redirect()->back()->with('error', "O nome do material e a rêferencia são obrigatorias");
-    //     }
-
-    // }
-
+    
         public function update(UpdateProofRequest $request, $id)
     {
 
